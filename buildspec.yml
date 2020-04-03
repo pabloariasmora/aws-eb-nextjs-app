@@ -1,0 +1,26 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing NPM ...
+      - curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash
+      # TODO Fix this execution, should be added to PATH and just be nvm install node
+      - echo Installing Node ...
+      - chmod +x $HOME/.nvm/nvm.sh
+      - $HOME/.nvm/nvm.sh install node
+      - node -e "console.log('Running Node.js ' + process.version)"
+  pre_build:
+    commands:
+      - echo Installing dependencies...
+      - npm install
+  build:
+    commands:
+      - echo Testing...
+      # - npm run test
+      - echo Building...
+      - npm run build
+artifacts:
+  files:
+    - "**/*"
+  discard-paths: no
